@@ -1,10 +1,10 @@
-# ednonlineeditor
+# Edn Online Editor
 
-FIXME: Write a one-line description of your library/project.
+Online tool to beautify your edn data
 
 ## Overview
 
-FIXME: Write a paragraph about the library/project and highlight its goals.
+Sometimes we don't have a Clojure(script) repl handy. This is an online tool to pretty print and beautify your end data.
 
 ## Setup
 
@@ -34,6 +34,6 @@ get live reloading, nor a REPL.
 
 ## License
 
-Copyright © 2014 FIXME
+Copyright © 2014 Timothy Washington
 
 Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.

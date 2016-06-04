@@ -10,7 +10,6 @@
                  [org.clojure/clojurescript "1.8.51"]
                  [org.clojure/core.async "0.2.374"
                   :exclusions [org.clojure/tools.reader]]
-                 #_[ring-jetty-component "0.3.1"]
                  [org.danielsz/system "0.3.0"]
                  [ring/ring-jetty-adapter "1.5.0-RC1"]
                  [compojure "1.5.0"]

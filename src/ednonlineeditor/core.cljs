@@ -1,40 +1,55 @@
 (ns ednonlineeditor.core
-  (:require [goog.dom :as gdom]
+  (:require [cljs.reader :refer [read-string]]
+            [cljs.pprint :as pp]
+            [goog.dom :as gdom]
             [om.next :as om :refer-macros [defui]]
             [om.dom :as dom]))
+
 
 (enable-console-print!)
 
 
-;; define your app data so that it doesn't get over-written on reload
+(def app-state (atom {:edn-string "{}"}))
 
-#_(defonce app-state (atom {:text "Hello world!"}))
-#_(defn on-js-reload []
-  ;; optionally touch your app-state to force rerendering depending on
-  ;; your application
-  ;; (swap! app-state update-in [:__figwheel_counter] inc)
-)
+(def data {:hello "world", :things {:vegetables #{"cauliflower" "sprouts" "cucumber"}, :primes [2 3 5 7 11 13 17 19 23], :fruits #{"apple" "banana" "strawberry" "kiwi"}}})
 
+(def new-data {:foo "bar" :things {:alist [1 2 3 4 "five" true] :aset #{"qwerty" "asdf" "zxcv"}}})
 
-(def app-state (atom {:count 0}))
-
-(defui Counter
+(defui EdnInput
   Object
   (render [this]
-          (let [{:keys [count]} (om/props this)]
+          (let [{:keys [edn-string]} (om/props this)
+                _ (println (str "EdnInput/render CALLED: " (om/props this)))
+                edn-edn (read-string edn-string)]
             (dom/div nil
-                     (dom/span nil (str "Count: " count))
+                     (dom/textarea
+                      #js {:id "edn-pane"
+                           :value edn-string #_(with-out-str (pp/pprint edn-edn))
+                           :onChange #(println (str "onChange CALLED: " (with-out-str (pp/pprint %))))
+                           :onBlur
+                           (fn [e]
+                             (println "onBlur CALLED: " (.-value (.-currentTarget e)))
+                             (swap! app-state update-in
+                                    [:edn-string]
+                                    (fn [ee]
+                                      (.-value (.-currentTarget e)))))})
                      (dom/button
                       #js {:onClick
                            (fn [e]
-                             (swap! app-state update-in [:count] inc))}
-                      "Click me!")))))
+                             (swap! app-state update-in
+                                    [:edn-string]
+                                    (fn [ee]
+                                      (let [edn-pretty (with-out-str (pp/pprint edn-edn))]
+                                        (println (str "onClick CALLED: " edn-pretty))
+                                        edn-pretty))))}
+                      ">>")))))
 
 (def reconciler
   (om/reconciler {:state app-state}))
 
 (om/add-root! reconciler
-              Counter(gdom/getElement "app"))
+              EdnInput (gdom/getElement "app"))
+
 
 
 (comment
@@ -42,6 +57,8 @@
   ;; 1. pretty print data to string
   (def data {:hello "world", :things {:vegetables #{"cauliflower" "sprouts" "cucumber"}, :primes [2 3 5 7 11 13 17 19 23], :fruits #{"apple" "banana" "strawberry" "kiwi"}}})
 
+  (def one {:foo "bar" :baz "quux"})
+  
   (require '[cljs.pprint :as pp])
   (with-out-str (pp/pprint data))
 
