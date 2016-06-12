@@ -9,7 +9,7 @@
 (enable-console-print!)
 
 
-(def app-state (atom {:edn-string "{}"}))
+(def app-state (atom {:edn-string ""}))
 
 (def data {:hello "world", :things {:vegetables #{"cauliflower" "sprouts" "cucumber"}, :primes [2 3 5 7 11 13 17 19 23], :fruits #{"apple" "banana" "strawberry" "kiwi"}}})
 
@@ -70,5 +70,7 @@
   ;; 5. stitch it into AWS
   ;; 6. DNS direct to AWS
   
+
+  ;; lein run -m ednonlineeditor.shell/-main
   
  )

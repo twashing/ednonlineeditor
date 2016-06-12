@@ -49,6 +49,11 @@
     :app-server (new-web-server 8080 shell-routes)
     :figwheel   (map->Figwheel figwheel-config))))
 
+(def system-main
+  (atom
+   (component/system-map
+    :app-server (new-web-server 80 shell-routes))))
+
 (defn start []
   (swap! system component/start))
 
@@ -61,6 +66,9 @@
 
 (defn repl []
     (ra/cljs-repl))
+
+(defn -main [& args]
+  (swap! system-main component/start))
 
 (comment
 
