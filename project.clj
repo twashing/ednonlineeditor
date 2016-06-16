@@ -22,6 +22,8 @@
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
 
+  :main ednonlineeditor.shell
+
   :cljsbuild{:builds
               [{:id "dev"
                 :source-paths ["src"]

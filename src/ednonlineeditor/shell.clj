@@ -8,16 +8,16 @@
 
 (def figwheel-config
   {:figwheel-options {} ;; <-- figwheel server config goes here
-    :build-ids ["dev"]   ;; <-- a vector of build ids to start autobuilding
-    :all-builds          ;; <-- supply your build configs here
-    [{:id "dev"
-      :figwheel true
-      :source-paths ["src"]
-      :compiler {:main "ednonlineeditor.core"
-                 :asset-path "js"
-                 :output-to "resources/public/js/compiled/ednonlineeditor.js"
-                 :output-dir "resources/public/js"
-                 :verbose true}}]})
+   :build-ids ["dev"]   ;; <-- a vector of build ids to start autobuilding
+   :all-builds          ;; <-- supply your build configs here
+   [{:id "dev"
+     :figwheel true
+     :source-paths ["src"]
+     :compiler {:main "ednonlineeditor.core"
+                :asset-path "js"
+                :output-to "resources/public/js/compiled/ednonlineeditor.js"
+                :output-dir "resources/public/js"
+                :verbose true}}]})
 
 
 (defrecord Figwheel []
@@ -76,5 +76,4 @@
   (stop)
 
   (reload)
-
   (repl))
