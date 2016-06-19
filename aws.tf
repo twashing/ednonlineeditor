@@ -123,3 +123,17 @@ resource "aws_instance" "edneditoronline-instance" {
   iam_instance_profile = "ednonlineeditor"
   user_data = "#!/bin/bash\necho ECS_CLUSTER=ednonlineeditor >> /etc/ecs/ecs.config"
 }
+
+resource "aws_route53_zone" "main" {
+  name = "edneditor.com"
+}
+
+resource "aws_route53_record" "main-ns" {
+    zone_id = "${aws_route53_zone.main.zone_id}"
+    name = "edneditor.com"
+    type = "A"
+    ttl = "300"
+    records = [
+        "${aws_instance.edneditoronline-instance.public_ip}"
+    ]
+}
