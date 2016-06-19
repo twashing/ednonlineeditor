@@ -22,27 +22,30 @@
                 _ (println (str "EdnInput/render CALLED: " (om/props this)))
                 edn-edn (read-string edn-string)]
             (dom/div nil
-                     (dom/textarea
-                      #js {:id "edn-pane"
-                           :value edn-string #_(with-out-str (pp/pprint edn-edn))
-                           :onChange #(println (str "onChange CALLED: " (with-out-str (pp/pprint %))))
-                           :onBlur
-                           (fn [e]
-                             (println "onBlur CALLED: " (.-value (.-currentTarget e)))
-                             (swap! app-state update-in
-                                    [:edn-string]
-                                    (fn [ee]
-                                      (.-value (.-currentTarget e)))))})
-                     (dom/button
-                      #js {:onClick
-                           (fn [e]
-                             (swap! app-state update-in
-                                    [:edn-string]
-                                    (fn [ee]
-                                      (let [edn-pretty (with-out-str (pp/pprint edn-edn))]
-                                        (println (str "onClick CALLED: " edn-pretty))
-                                        edn-pretty))))}
-                      ">>")))))
+                     (dom/div nil
+                              (dom/button
+                               #js {:onClick
+                                    (fn [e]
+                                      (swap! app-state update-in
+                                             [:edn-string]
+                                             (fn [ee]
+                                               (let [edn-pretty (with-out-str (pp/pprint edn-edn))]
+                                                 (println (str "onClick CALLED: " edn-pretty))
+                                                 edn-pretty))))}
+                               ">>"))
+                     (dom/div nil
+                              (dom/textarea
+                               #js {:id "edn-pane"
+                                    :value edn-string #_(with-out-str (pp/pprint edn-edn))
+                                    :onChange #(println (str "onChange CALLED: " (with-out-str (pp/pprint %))))
+                                    :onBlur
+                                    (fn [e]
+                                      (println "onBlur CALLED: " (.-value (.-currentTarget e)))
+                                      (swap! app-state update-in
+                                             [:edn-string]
+                                             (fn [ee]
+                                               (.-value (.-currentTarget e)))))}))
+                     ))))
 
 (def reconciler
   (om/reconciler {:state app-state}))

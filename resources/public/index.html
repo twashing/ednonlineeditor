@@ -1,13 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">    
-    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script src="//use.typekit.net/zac5lnn.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
+    <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+    
+    <link rel="stylesheet"  href="css/style.css" type="text/css">
   </head>
-  <body>
-    <div id="app">
-    </div>
+
+  <body fullbleed vertical layout>
+    <paper-header-panel>
+
+      <paper-toolbar class="toolbar-override">
+	<div class="tk-lust-script header-logo">Edneditor</div>
+      </paper-toolbar>
+
+      <!-- <div>Content goes here...</div> -->
+      <div id="app" class="fit">
+      </div>
+
+    </paper-header-panel>
+      	
+    
     <script src="js/compiled/ednonlineeditor.js" type="text/javascript"></script>
+
+
+    <!-- Ensuring users of IE can't use Compatibility Mode, as this will break Persona.
+         (https://developer.mozilla.org/en-US/Persona/Quick_setup) -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
   </body>
+
 </html>

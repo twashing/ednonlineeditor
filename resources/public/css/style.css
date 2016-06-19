@@ -1,2 +1,28 @@
-/* some style */
 
+* {
+    font-family: "open-sans",sans-serif;
+}
+
+html , body {
+    height: 100%;
+    margin: 0;
+}
+paper-toolbar , .toolbar-override {
+    background-color: #4d89c5;
+    color: #000;
+}
+paper-header-panel {
+    height: 100%;
+}
+.header-logo {
+    font-size: 20px;
+}
+
+#app {
+    margin: 10px;
+    height: 200px;
+}
+#edn-pane {
+    width: 99.5%;
+    height: 200px;
+}
